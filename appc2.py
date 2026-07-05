@@ -1,167 +1,172 @@
 import streamlit as st
 
-# Thiết lập cấu hình trang
-st.set_page_config(page_title="CHƯƠNG 2", page_icon="🌡️", layout="centered")
+# Thiết lập cấu hình trang hiển thị trực quan
+st.set_page_config(page_title="CHƯƠNG 2", page_icon="⏳", layout="centered")
 
-# --- DỮ LIỆU PHẦN A: 100 CÂU HỎI TRẮC NGHIỆM ---
+# --- DỮ LIỆU PHẦN 1: 100 CÂU HỎI TRẮC NGHIỆM ---
 quiz_data = [
-    {"q": "Câu 1. Nhiệt động học là môn khoa học nghiên cứu về?", "ops": ["A. Sự biến đổi năng lượng", "B. Cấu trúc tế bào", "C. Di truyền học", "D. Quang hợp"], "ans": "A"},
-    {"q": "Câu 2. Hệ không trao đổi vật chất và năng lượng với môi trường được gọi là?", "ops": ["A. Hệ mở", "B. Hệ kín", "C. Hệ cô lập", "D. Hệ dị thể"], "ans": "C"},
-    {"q": "Câu 3. Hệ không trao đổi vật chất nhưng có trao đổi năng lượng với môi trường là?", "ops": ["A. Hệ cô lập", "B. Hệ kín", "C. Hệ mở", "D. Hệ đồng thể"], "ans": "B"},
-    {"q": "Câu 4. Hệ có trao đổi cả vật chất và năng lượng với môi trường là?", "ops": ["A. Hệ cô lập", "B. Hệ kín", "C. Hệ mở", "D. Hệ dị thể"], "ans": "C"},
-    {"q": "Câu 5. Hệ không có bề mặt phân chia thành các phần có tính chất hóa lý khác nhau gọi là?", "ops": ["A. Hệ dị thể", "B. Hệ đồng thể", "C. Hệ cô lập", "D. Hệ mở"], "ans": "B"},
-    {"q": "Câu 6. Hệ gồm hai pha trở lên, các pha ngăn cách nhau bởi bề mặt phân chia được gọi là?", "ops": ["A. Hệ đồng thể", "B. Hệ đồng nhất", "C. Hệ dị thể", "D. Hệ kín"], "ans": "C"},
-    {"q": "Câu 7. Thông số nào sau đây là thông số trạng thái?", "ops": ["A. Công A", "B. Nhiệt lượng Q", "C. Nhiệt độ T", "D. Nhiệt lượng q"], "ans": "C"},
-    {"q": "Câu 8. Thông số nào sau đây là thông số quá trình?", "ops": ["A. Nhiệt độ T", "B. Áp suất P", "C. Nhiệt lượng Q", "D. Nội năng U"], "ans": "C"},
-    {"q": "Câu 9. Thông số cường độ là thông số?", "ops": ["A. Phụ thuộc vào lượng chất", "B. Không phụ thuộc vào lượng chất", "C. Chỉ có ở hệ mở", "D. Chỉ có ở hệ cô lập"], "ans": "B"},
-    {"q": "Câu 10. Thông số khuếch độ là thông số?", "ops": ["A. Không phụ thuộc lượng chất", "B. Phụ thuộc vào lượng chất", "C. Chỉ tồn tại ở trạng thái cân bằng", "D. Không tồn tại trong hệ sống"], "ans": "B"},
-    {"q": "Câu 11. Nguyên lý số 0 của nhiệt động học phát biểu về?", "ops": ["A. Bảo toàn năng lượng", "B. Cân bằng nhiệt", "C. Chiều hướng quá trình", "D. Entropy"], "ans": "B"},
-    {"q": "Câu 12. Theo nguyên lý số 1, nhiệt lượng Q mà hệ nhận được bằng?", "ops": ["A. Công A trừ nội năng U", "B. Công A cộng biến đổi nội năng U", "C. Entropy S nhân nhiệt độ T", "D. Không liên quan đến công và nội năng"], "ans": "B"},
-    {"q": "Câu 13. Công thức của nguyên lý 1 đối với hệ kín là?", "ops": ["A. ΔQ = ΔA − ΔU", "B. ΔQ = ΔA + ΔU", "C. ΔU = ΔQ × ΔA", "D. ΔA = ΔQ × ΔU"], "ans": "B"},
-    {"q": "Câu 14. Khi ΔQ > 0 nghĩa là?", "ops": ["A. Hệ tỏa nhiệt", "B. Hệ thu nhiệt", "C. Hệ sinh công", "D. Hệ nhận công"], "ans": "B"},
-    {"q": "Câu 15. Định luật Hexo là hệ quả của?", "ops": ["A. Nguyên lý số 0", "B. Nguyên lý số 1", "C. Nguyên lý số 2", "D. Định luật Carnot"], "ans": "B"},
-    {"q": "Câu 16. Theo định luật Hexo, hiệu ứng nhiệt của một phản ứng phụ thuộc vào?", "ops": ["A. Cách biến chuyển của phản ứng", "B. Trạng thái chất đầu và chất cuối", "C. Thời gian phản ứng", "D. Tốc độ phản ứng"], "ans": "B"},
-    {"q": "Câu 17. Có bao nhiêu dạng công cơ bản trong cơ thể sống?", "ops": ["A. 2", "B. 3", "C. 4", "D. 5"], "ans": "C"},
-    {"q": "Câu 18. Công sinh ra khi tổng hợp các đại phân tử được gọi là?", "ops": ["A. Công cơ học", "B. Công hóa học", "C. Công thẩm thấu", "D. Công điện"], "ans": "B"},
-    {"q": "Câu 19. Công vận chuyển các chất qua màng tế bào được gọi là?", "ops": ["A. Công hóa học", "B. Công cơ học", "C. Công thẩm thấu", "D. Công điện"], "ans": "C"},
-    {"q": "Câu 20. Công vận chuyển các hạt mang điện được gọi là?", "ops": ["A. Công hóa học", "B. Công điện", "C. Công cơ học", "D. Công thẩm thấu"], "ans": "B"},
-    {"q": "Câu 21. Thiết bị dùng để đo nhiệt lượng tỏa ra khi đốt cháy một mẫu chất là?", "ops": ["A. Nhiệt kế", "B. Bom nhiệt lượng", "C. Áp kế", "D. Calorimet gián tiếp"], "ans": "B"},
-    {"q": "Câu 22. Động cơ nhiệt cần tiếp xúc với bao nhiêu nguồn nhiệt?", "ops": ["A. 1", "B. 2", "C. 3", "D. 4"], "ans": "B"},
-    {"q": "Câu 23. Nguyên lý số 2 của nhiệt động học cho biết?", "ops": ["A. Bản chất của phản ứng", "B. Chiều hướng tự diễn biến của quá trình", "C. Cấu trúc phân tử", "D. Khối lượng của hệ"], "ans": "B"},
-    {"q": "Câu 24. Gradient của một tham số là?", "ops": ["A. Tổng giá trị tham số ở hai điểm", "B. Hiệu giá trị tham số ở hai điểm chia cho khoảng cách giữa hai điểm", "C. Tích giá trị tham số ở hai điểm", "D. Giá trị trung bình của tham số"], "ans": "B"},
-    {"q": "Câu 25. Entropy là đại lượng đặc trưng cho?", "ops": ["A. Khả năng sinh công", "B. Sự phân tán năng lượng", "C. Khối lượng của hệ", "D. Nhiệt độ của hệ"], "ans": "B"},
-    {"q": "Câu 26. Theo định nghĩa 1, entropy được tính bằng công thức?", "ops": ["A. S = Q × T", "B. S = Q/T", "C. S = T/Q", "D. S = Q + T"], "ans": "B"},
-    {"q": "Câu 27. Theo định nghĩa 2, công thức tính entropy là?", "ops": ["A. S = k.lnω", "B. S = k/ω", "C. S = k × ω", "D. S = ω/k"], "ans": "A"},
-    {"q": "Câu 28. Trong công thức S = k.lnω, ω là?", "ops": ["A. Hằng số Boltzmann", "B. Xác suất nhiệt động", "C. Nhiệt độ tuyệt đối", "D. Nội năng"], "ans": "B"},
-    {"q": "Câu 29. Trong quá trình đoạn nhiệt thuận nghịch, biến thiên entropy ΔS bằng?", "ops": ["A. 0", "B. Dương", "C. Âm", "D. Vô cực"], "ans": "A"},
-    {"q": "Câu 30. Trong quá trình bất thuận nghịch, biến thiên entropy luôn?", "ops": ["A. Bằng 0", "B. Nhỏ hơn 0", "C. Lớn hơn 0", "D. Không xác định"], "ans": "C"},
-    {"q": "Câu 31. Entanpi H được định nghĩa bởi công thức?", "ops": ["A. H = U − pV", "B. H = U + pV", "C. H = U × pV", "D. H = U/pV"], "ans": "B"},
-    {"q": "Câu 32. Năng lượng tự do Helmholtz F được định nghĩa là?", "ops": ["A. F = U − TS", "B. F = U + TS", "C. F = U × TS", "D. F = H − TS"], "ans": "A"},
-    {"q": "Câu 33. Thế nhiệt động Gibbs G được tính bằng?", "ops": ["A. G = U − TS", "B. G = H − TS", "C. G = F − pV", "D. G = U + TS"], "ans": "B"},
-    {"q": "Câu 34. Phương trình trạng thái khí lý tưởng Mendeleev-Clapeyron là?", "ops": ["A. pV = nRT", "B. pT = nRV", "C. VT = nRp", "D. pVT = nR"], "ans": "A"},
-    {"q": "Câu 35. Giá trị hằng số khí lý tưởng R trong hệ SI là?", "ops": ["A. 8,314 J/mol.K", "B. 22,4 J/mol.K", "C. 6,02 J/mol.K", "D. 1,987 J/mol.K"], "ans": "A"},
-    {"q": "Câu 36. Nội năng U của khí lý tưởng được tính bằng?", "ops": ["A. U = nRT", "B. U = (3/2)nRT", "C. U = (1/2)nRT", "D. U = 2nRT"], "ans": "B"},
-    {"q": "Câu 37. Nội năng của hệ không bao gồm?", "ops": ["A. Năng lượng chuyển động phân tử", "B. Thế năng trọng trường và động năng tập thể của hệ", "C. Năng lượng liên kết hạt nhân", "D. Năng lượng dao động phân tử"], "ans": "B"},
-    {"q": "Câu 38. Quá trình giữ áp suất không đổi được gọi là?", "ops": ["A. Đẳng nhiệt", "B. Đẳng áp", "C. Đẳng tích", "D. Đoạn nhiệt"], "ans": "B"},
-    {"q": "Câu 39. Quá trình không có sự trao đổi nhiệt với môi trường được gọi là?", "ops": ["A. Đẳng áp", "B. Đẳng tích", "C. Đoạn nhiệt", "D. Đẳng nhiệt"], "ans": "C"},
-    {"q": "Câu 40. Quá trình có thể tự trở về trạng thái ban đầu mà không cần năng lượng bên ngoài gọi là?", "ops": ["A. Quá trình bất thuận nghịch", "B. Quá trình thuận nghịch", "C. Quá trình đoạn nhiệt", "D. Quá trình đẳng áp"], "ans": "B"},
-    {"q": "Câu 41. Vì sao các quá trình hóa sinh và lý sinh trong cơ thể sống đều là quá trình bất thuận nghịch?", "ops": ["A. Vì chúng luôn cần cung cấp năng lượng để trở về trạng thái ban đầu", "B. Vì chúng luôn xảy ra ở nhiệt độ không đổi", "C. Vì chúng không tiêu tốn năng lượng", "D. Vì chúng luôn ở trạng thái cân bằng"], "ans": "A"},
-    {"q": "Câu 42. Trong hệ kín, tại trạng thái cân bằng nhiệt động thì?", "ops": ["A. dU vẫn thay đổi liên tục", "B. dU = 0", "C. dS < 0", "D. Hệ vẫn tiếp tục sinh công"], "ans": "B"},
-    {"q": "Câu 43. Ở trạng thái cân bằng nhiệt động, năng lượng tự do F/G của hệ có xu hướng?", "ops": ["A. Đạt giá trị cực đại", "B. Đạt giá trị cực tiểu (min), hệ không còn khả năng sinh công", "C. Không đổi và bằng 0 luôn", "D. Tăng liên tục theo thời gian"], "ans": "B"},
-    {"q": "Câu 44. So với cân bằng nhiệt động, trạng thái cân bằng dừng của hệ sống khác biệt chủ yếu ở điểm nào?", "ops": ["A. Là hệ cô lập, không trao đổi gì với môi trường", "B. Là hệ mở, luôn có dòng vật chất/năng lượng ra vào, tồn tại gradient", "C. Không có entropy", "D. Không tuân theo nguyên lý 1"], "ans": "B"},
-    {"q": "Câu 45. Tại trạng thái cân bằng dừng, entropy của hệ sống có đặc điểm gì?", "ops": ["A. Đạt cực đại (Smax)", "B. Bằng 0", "C. Khác 0, là hằng số và nhỏ hơn Smax", "D. Luôn tăng vô hạn"], "ans": "C"},
-    {"q": "Câu 46. Công thức Prigogine dS/dt = dSe/dt + dSi/dt bằng 0 khi nào?", "ops": ["A. Hệ đạt trạng thái cân bằng dừng", "B. Hệ đạt cân bằng nhiệt động", "C. Hệ đang sinh công tối đa", "D. Hệ bị cô lập hoàn toàn"], "ans": "A"},
-    {"q": "Câu 47. Trong công thức dS = dSi + dSe, dSi luôn có tính chất?", "ops": ["A. Có thể âm", "B. Luôn dương (dSi > 0)", "C. Luôn bằng 0", "D. Luôn bằng dSe"], "ans": "B"},
-    {"q": "Câu 48. dSe trong công thức Prigogine có thể mang giá trị như thế nào?", "ops": ["A. Chỉ dương", "B. Chỉ âm", "C. Chỉ bằng 0", "D. Có thể dương, âm hoặc bằng 0"], "ans": "D"},
-    {"q": "Câu 49. Vì sao hệ thống sống có thể duy trì trật tự cao mặc dù nguyên lý 2 cho rằng entropy có xu hướng tăng?", "ops": ["A. Vì hệ sống là hệ cô lập", "B. Vì hệ sống là hệ mở, có thể giảm entropy nội tại nhờ trao đổi vật chất/năng lượng với môi trường (dSe âm)", "C. Vì hệ sống không tuân theo nguyên lý 2", "D. Vì hệ sống không có entropy"], "ans": "B"},
-    {"q": "Câu 50. Hiệu suất động cơ nhiệt theo chu trình Carnot được tính bằng công thức nào?", "ops": ["A. η = T1/T2", "B. η = (T1−T2)/T1", "C. η = (T2−T1)/T2", "D. η = T1 × T2"], "ans": "B"},
-    {"q": "Câu 51. Theo chu trình Carnot, hiệu suất máy nhiệt phụ thuộc vào?", "ops": ["A. Bản chất vật liệu chế tạo máy", "B. Nhiệt độ nguồn nóng và nguồn lạnh", "C. Khối lượng của máy", "D. Thời gian hoạt động"], "ans": "B"},
-    {"q": "Câu 52. Vì sao hiệu suất động cơ nhiệt η luôn nhỏ hơn 1?", "ops": ["A. Vì công luôn lớn hơn nhiệt lượng cấp vào", "B. Vì một phần nhiệt luôn phải nhường cho nguồn lạnh, không thể biến đổi hoàn toàn thành công", "C. Vì nhiệt độ T2 luôn âm", "D. Vì máy luôn bị hao mòn"], "ans": "B"},
-    {"q": "Câu 53. Phát biểu \"máy lạnh lý tưởng không tồn tại\" là hệ quả của?", "ops": ["A. Nguyen lý số 0", "B. Nguyên lý số 1", "C. Định luật 2 dạng 2 (nhiệt không tự truyền từ vật lạnh sang vật nóng hơn)", "D. Định luật Hexo"], "ans": "C"},
-    {"q": "Câu 54. Trong công thức ΔQ = ΔA + ΔE + ΔM áp dụng cho cơ thể sống, ΔM đại diện cho?", "ops": ["A. Công cơ thể thực hiện", "B. Năng lượng mất mát ra môi trường", "C. Năng lượng dự trữ dưới dạng hóa năng", "D. Nhiệt lượng sinh ra khi đốt thức ăn"], "ans": "C"},
-    {"q": "Câu 55. Nhiệt lượng sơ cấp trong cơ thể sống sinh ra do?", "ops": ["A. Đứt các liên kết giàu năng lượng ATP", "B. Phân tán năng lượng trong quá trình trao đổi vật chất (các phản ứng hóa sinh không thuận nghịch)", "C. Co cơ", "D. Hô hấp ngoài"], "ans": "B"},
-    {"q": "Câu 56. Nhiệt lượng thứ cấp trong cơ thể sống sinh ra khi nào?", "ops": ["A. Khi tổng hợp glycogen", "B. Khi đứt các liên kết giàu năng lượng (ATP) để điều hòa hoạt động chủ động của cơ thể", "C. Khi hình thành liên kết peptit", "D. Khi hấp thu oxy"], "ans": "B"},
-    {"q": "Câu 57. Ở điều kiện thông thường, nhiệt lượng sơ cấp và thứ cấp trong cơ thể có mối quan hệ như thế nào?", "ops": ["A. Luôn triệt tiêu lẫn nhau bằng 0", "B. Cân bằng với nhau", "C. Sơ cấp luôn lớn hơn thứ cấp rất nhiều", "D. Không liên quan gì đến nhau"], "ans": "B"},
-    {"q": "Câu 58. Công thực hiện khi co cơ được tính gần đúng theo công thức nào?", "ops": ["A. A = ∫F(x)dx, Amax ≈ 0,45 Fmax×Δxmax", "B. A = pΔV", "C. A = QΔT", "D. A = mgh"], "ans": "A"},
-    {"q": "Câu 59. Công trong quá trình hô hấp được tính bằng công thức nào?", "ops": ["A. A = ∫pdV", "B. A = ∫Fdx", "C. A = QT", "D. A = ΔU"], "ans": "A"},
-    {"q": "Câu 60. Trong tuần hoàn, công A của tim được xác định chủ yếu bởi những yếu tố nào?", "ops": ["A. Nhiệt độ và thể tích máu", "B. Áp suất P đẩy máu và độ căng cơ (trương lực cơ)", "C. Nồng độ oxy trong máu", "D. Khối lượng cơ tim"], "ans": "B"},
-    {"q": "Câu 61. ATP có thể được tổng hợp từ phản ứng nào sau đây?", "ops": ["A. Glucose + O2 → CO2 + H2O", "B. Photphocreatin + ADP → ATP + creatin", "C. Protein + nước → axit amin", "D. Lipid + O2 → CO2 + H2O + năng lượng"], "ans": "B"},
-    {"q": "Câu 62. Phản ứng phân hủy glycogen giải phóng ATP có dạng?", "ops": ["A. Glucose + 3H3PO4 → 2 Lactat + 2ATP + 2H2O", "B. ATP → ADP + Pi", "C. Creatin + ATP → photphocreatin", "D. Glucose + O2 → 6CO2 + 6H2O"], "ans": "A"},
-    {"q": "Câu 63. Phương pháp nhiệt lượng kế gián tiếp của La Voizier và Laplace dựa trên nguyên tắc nào?", "ops": ["A. Đo trực tiếp nhiệt độ cơ thể", "B. Khi không sinh công ngoài, nhiệt do cơ thể sinh ra xấp xỉ nhiệt sinh ra khi đốt cháy hoàn toàn thức ăn thành CO2 và H2O", "C. Đo lượng oxy tiêu thụ", "D. Đo khối lượng cơ thể trước và sau ăn"], "ans": "B"},
-    {"q": "Câu 64. Tại sao entropy được xem là \"độ đo sự phân tán năng lượng\"?", "ops": ["A. Vì entropy luôn giảm theo thời gian", "B. Vì entropy tăng lên khi năng lượng trở nên kém tập trung, kém khả năng sinh công hơn", "C. Vì entropy tỉ lệ nghịch với nhiệt độ", "D. Vì entropy không liên quan đến năng lượng"], "ans": "B"},
-    {"q": "Câu 65. Trạng thái có entropy lớn là trạng thái?", "ops": ["A. Khó xảy ra nhất, xác suất thấp nhất", "B. Dễ xảy ra nhất, có xác suất xảy ra lớn nhất", "C. Không thể xảy ra", "D. Chỉ xảy ra ở nhiệt độ 0K"], "ans": "B"},
-    {"q": "Câu 66. Vì sao nói entropy là \"hàm trạng thái\"?", "ops": ["A. Vì giá trị của nó chỉ phụ thuộc vào cách biến đổi", "B. Vì giá trị biến thiên của nó chỉ phụ thuộc trạng thái đầu và cuối, không phụ thuộc con đường biến đổi", "C. Vì nó luôn không đổi", "D. Vì nó chỉ áp dụng cho hệ cô lập"], "ans": "B"},
-    {"q": "Câu 67. Công thức nào biểu diễn điều kiện tự diễn biến của phản ứng ở điều kiện đẳng nhiệt, đẳng áp?", "ops": ["A. ΔG > 0", "B. ΔG = 0", "C. (dG)T,P < 0", "D. ΔS < 0"], "ans": "C"},
-    {"q": "Câu 68. Biểu thức ΔG = ΔH − TΔS cho biết điều gì?", "ops": ["A. Mối liên hệ giữa năng lượng tự do Gibbs với entanpi và entropy", "B. Công thức tính nội năng", "C. Định luật bảo toàn khối lượng", "D. Phương trình trạng thái khí lý tưởng"], "ans": "A"},
-    {"q": "Câu 69. Trong điều kiện thể tích không đổi (V=const), hệ tự phát biến đổi khi nào?", "ops": ["A. dU − TdS > 0", "B. dU − TdS < 0", "C. dU = TdS", "D. dS = 0"], "ans": "B"},
-    {"q": "Câu 70. Trong điều kiện áp suất không đổi (P=const), điều kiện hệ tự phát biến đổi là?", "ops": ["A. dS > dH/T", "B. dS < dH/T", "C. dH = 0", "D. dS = 0"], "ans": "A"},
-    {"q": "Câu 71. Đại lượng nào sau đây KHÔNG phải là hàm trạng thái?", "ops": ["A. Nội năng U", "B. Entanpi H", "C. Nhiệt lượng Q", "D. Entropy S"], "ans": "C"},
-    {"q": "Câu 72. Ý nghĩa của gradient nồng độ dC/dx trong tế bào sống là gì?", "ops": ["A. Không có ý nghĩa sinh học", "B. Sự tồn tại của gradient tạo ra khả năng thực hiện công của tế bào sống", "C. Chỉ có ý nghĩa vật lý, không liên quan sinh học", "D. Luôn bằng 0 trong tế bào sống"], "ans": "B"},
-    {"q": "Câu 73. Sự khác biệt cơ bản giữa quá trình đẳng nhiệt và đoạn nhiệt là gì?", "ops": ["A. Đẳng nhiệt không trao đổi nhiệt còn đoạn nhiệt có trao đổi nhiệt", "B. Đẳng nhiệt giữ T không đổi (có thể trao đổi nhiệt khi V/P thay đổi), đoạn nhiệt không trao đổi nhiệt (T có thể thay đổi)", "C. Cả hai đều không trao đổi nhiệt", "D. Cả hai đều giữ nhiệt độ không đổi"], "ans": "B"},
-    {"q": "Câu 74. Vì sao trong quá trình đẳng nhiệt vẫn có thể xảy ra trao đổi nhiệt với môi trường?", "ops": ["A. Vì nhiệt độ không thực sự cố định", "B. Để bù lại sự thay đổi thể tích/áp suất mà vẫn giữ nhiệt độ không đổi", "C. Vì đẳng nhiệt luôn đi kèm với đoạn nhiệt", "D. Vì đó là do sai số đo lường"], "ans": "B"},
-    {"q": "Câu 75. Bốn dạng công cơ bản trong cơ thể sống đều cần loại năng lượng chủ yếu nào để thực hiện?", "ops": ["A. Nhiệt năng", "B. ATP, GTP", "C. Quang năng", "D. Cơ năng từ bên ngoài"], "ans": "B"},
-    {"q": "Câu 76. Một hệ kín nhận nhiệt lượng Q = 500 J và sinh công A = 200 J. Độ biến thiên nội năng ΔU của hệ là?", "ops": ["A. 300 J", "B. 700 J", "C. −300 J", "D. −700 J"], "ans": "A"},
-    {"q": "Câu 77. Một động cơ nhiệt hoạt động giữa nguồn nóng T1 = 600 K và nguồn lạnh T2 = 300 K. Hiệu suất lý tưởng của động cơ là?", "ops": ["A. 25%", "B. 50%", "C. 75%", "D. 100%"], "ans": "B"},
-    {"q": "Câu 78. Một khối khí lý tưởng có n = 2 mol ở nhiệt độ T = 300 K (R = 8,314 J/mol.K). Nội năng của khối khí xấp xỉ bằng bao nhiêu?", "ops": ["A. 7,48 kJ", "B. 3,74 kJ", "C. 14,96 kJ", "D. 2,49 kJ"], "ans": "A"},
-    {"q": "Câu 79. Xét quá trình đẳng nhiệt thuận nghịch nhận nhiệt lượng Q = 1000 J ở nhiệt độ T = 250 K. Biến thiên entropy ΔS là?", "ops": ["A. 4 J/K", "B. 0,25 J/K", "C. 250 J/K", "D. 1000 J/K"], "ans": "A"},
-    {"q": "Câu 80. Một phản ứng có ΔH = −50 kJ, ΔS = −100 J/K, ở T = 300 K. Giá trị ΔG là?", "ops": ["A. −20 kJ", "B. −80 kJ", "C. 20 kJ", "D. 80 kJ"], "ans": "A"},
-    {"q": "Câu 81. Với dữ liệu ΔG = −20 kJ (< 0) ở câu trên, có thể kết luận gì về phản ứng?", "ops": ["A. Phản ứng không tự diễn biến", "B. Phản ứng tự diễn biến ở điều kiện đó", "C. Phản ứng đang ở trạng thái cân bằng", "D. Không đủ dữ liệu để kết luận"], "ans": "B"},
-    {"q": "Câu 82. Nếu ΔH > 0 và ΔS > 0 trong một phản ứng, phản ứng có tự diễn biến hay không phụ thuộc vào?", "ops": ["A. Không bao giờ tự diễn biến", "B. Luôn tự diễn biến ở mọi nhiệt độ", "C. Tự diễn biến khi nhiệt độ đủ cao (T lớn để TΔS > ΔH)", "D. Không phụ thuộc nhiệt độ"], "ans": "C"},
-    {"q": "Câu 83. Nếu ΔH < 0 và ΔS < 0, phản ứng tự diễn biến khi nào?", "ops": ["A. Ở nhiệt độ thấp (khi |ΔH| > |TΔS|)", "B. Ở nhiệt độ cao", "C. Không bao giờ tự diễn biến", "D. Luôn tự diễn biến bất kể nhiệt độ"], "ans": "A"},
-    {"q": "Câu 84. Xác suất nhiệt động ω của một hệ tăng lên 10 lần. Biến thiên entropy ΔS (theo hằng số Boltzmann k) là bao nhiêu?", "ops": ["A. k.ln(10) ≈ 2,303k", "B. 10k", "C. k/10", "D. k.ln(0,1)"], "ans": "A"},
-    {"q": "Câu 85. Một hệ cô lập luôn có đặc điểm gì về entropy theo thời gian?", "ops": ["A. Luôn giảm", "B. Luôn không đổi", "C. Luôn tăng hoặc không đổi (dS ≥ 0), tiến tới cực đại khi cân bằng", "D. Dao động không xác định"], "ans": "C"},
-    {"q": "Câu 86. So sánh quá trình thuận nghịch và bất thuận nghịch về biến thiên entropy tổng cộng (hệ + môi trường)?", "ops": ["A. Thuận nghịch: ΔS tổng = 0; bất thuận nghịch: ΔS tổng > 0", "B. Cả hai đều có ΔS tổng = 0", "C. Cả hai đều có ΔS tổng > 0", "D. Không thể so sánh"], "ans": "A"},
-    {"q": "Câu 87. Tại sao \"công có thể biến đổi hoàn toàn thành nhiệt nhưng nhiệt không thể biến đổi hoàn toàn thành công\"?", "ops": ["A. Vì công là dạng năng lượng có trật tự cao (chuyển động định hướng), còn nhiệt là chuyển động hỗn loạn của phân tử, nên chuyển ngược lại luôn có hao phí", "B. Vì nhiệt luôn lớn hơn công về giá trị tuyệt đối", "C. Vì đó chỉ là một quy ước tính toán", "D. Vì công luôn bằng 0"], "ans": "A"},
-    {"q": "Câu 88. Một tế bào duy trì cấu trúc trật tự cao (entropy nội tại cục bộ có xu hướng giảm). Điều này có mâu thuẫn với nguyên lý 2 không?", "ops": ["A. Có mâu thuẫn vì entropy hệ cô lập luôn phải tăng", "B. Không mâu thuẫn, vì tế bào là hệ mở: dSe đủ âm bù cho dSi > 0 cục bộ, còn xét toàn hệ mở rộng (tế bào + môi trường) entropy tổng vẫn tăng", "C. Không mâu thuẫn vì tế bào không tuân theo các định luật vật lý", "D. Có mâu thuẫn nên nguyên lý 2 không áp dụng cho sinh vật"], "ans": "B"},
-    {"q": "Câu 89. Trạng thái cân bằng dừng khác trạng thái cân bằng nhiệt động ở điểm mấu chốt nào liên quan đến khả năng sinh công?", "ops": ["A. Cả hai đều không có khả năng sinh công", "B. Cân bằng dừng có G, F khác 0 (const) nên hệ vẫn có khả năng sinh công; cân bằng nhiệt động có G, F → min nên hết khả năng sinh công", "C. Cân bằng nhiệt động luôn sinh công lớn hơn", "D. Không có sự khác biệt nào"], "ans": "B"},
-    {"q": "Câu 90. Vì sao cơ thể sống được xem là \"hệ mở đặc biệt\" hơn là một hệ mở thông thường?", "ops": ["A. Vì nó luôn đạt cân bằng nhiệt động thực sự", "B. Vì nó liên tục trao đổi vật chất/năng lượng với môi trường để duy trì trạng thái dừng có trật tự cao, chứ không tiến tới cân bằng nhiệt động (chết)", "C. Vì nó không tuân theo nguyên lý bảo toàn năng lượng", "D. Vì nó không có entropy"], "ans": "B"},
-    {"q": "Câu 91. Nếu một cơ thể sống ngừng trao đổi chất với môi trường (chết), hệ sẽ tiến dần tới?", "ops": ["A. Trạng thái cân bằng dừng bền vững hơn", "B. Trạng thái cân bằng nhiệt động (entropy tiến tới cực đại, mất khả năng sinh công)", "C. Trạng thái entropy giảm dần về 0", "D. Không có sự thay đổi nào"], "ans": "B"},
-    {"q": "Câu 92. Trong công thức ΔQ = ΔA + ΔE + ΔM, nếu cơ thể không thực hiện công ra bên ngoài (ΔA = 0) và không tích lũy năng lượng dự trữ (ΔM = 0), thì ΔQ xấp xỉ bằng?", "ops": ["A. 0", "B. ΔE (toàn bộ nhiệt sinh ra mất vào môi trường)", "C. ΔA", "D. Vô cực"], "ans": "B"},
-    {"q": "Xét chu trình Carnot, nếu T1 (nguồn nóng) tăng lên trong khi T2 (nguồn lạnh) không đổi, hiệu suất η sẽ?", "ops": ["A. Giảm", "B. Tăng", "C. Không đổi", "D. Bằng 1"], "ans": "B"},
-    {"q": "Nếu T2 (nguồn lạnh) tiến gần đến T1 (nguồn nóng), hiệu suất động cơ nhiệt η sẽ tiến gần đến?", "ops": ["A. 1", "B. 0", "C. Vô cực", "D. Âm"], "ans": "B"},
-    {"q": "Một phản ứng có ΔH = −20 kJ, ΔS = +50 J/K. Ở mọi nhiệt độ dương, dấu của ΔG sẽ?", "ops": ["A. Luôn dương (không tự diễn biến)", "B. Luôn âm (luôn tự diễn biến ở mọi T > 0)", "C. Luôn bằng 0", "D. Phụ thuộc hoàn toàn vào áp suất"], "ans": "B"},
-    {"q": "Một phản ứng có ΔH > 0, ΔS < 0. Dấu của ΔG ở mọi nhiệt độ dương sẽ?", "ops": ["A. Luôn âm", "B. Luôn dương (không bao giờ tự diễn biến)", "C. Bằng 0", "D. Phụ thuộc vào áp suất"], "ans": "B"},
-    {"q": "Trong thí nghiệm bom nhiệt lượng, mẫu chất được đốt cháy trong điều kiện nào?", "ops": ["A. Hệ mở, áp suất khí quyển", "B. Hệ cô lập (kín, thể tích không đổi) để đo chính xác nhiệt tỏa ra", "C. Hệ có trao đổi vật chất tự do", "D. Điều kiện chân không tuyệt đối không có oxy"], "ans": "B"},
-    {"q": "Tại sao phương pháp nhiệt lượng kế gián tiếp lại được gọi là \"gián tiếp\"?", "ops": ["A. Vì đo trực tiếp nhiệt lượng cơ thể tỏa ra bằng bom nhiệt lượng chứa cả cơ thể", "B. Vì suy ra nhiệt lượng cơ thể sinh ra thông qua nhiệt lượng đo được khi đốt cháy thức ăn (thành phần dinh dưỡng) trong bom nhiệt lượng, không đo trực tiếp trên cơ thể sống", "C. Vì không liên quan đến nhiệt lượng", "D. Vì đo qua nhiệt độ môi trường xung quanh"], "ans": "B"},
-    {"q": "Nhận định nào sau đây về mối quan hệ giữa 3 nguyên lý nhiệt động học là đúng?", "ops": ["A. Nguyên lý 0 xác định chiều quá trình, nguyên lý 1 nói về cân bằng nhiệt, nguyên lý 2 bảo toàn năng lượng", "B. Nguyên lý 0 nói về cân bằng nhiệt, nguyên lý 1 là bảo toàn năng lượng, nguyên lý 2 xác định chiều hướng tự diễn biến", "C. Cả ba nguyên lý đều chỉ nói về entropy", "D. Cả ba nguyên lý đều tương đương nhau"], "ans": "B"},
-    {"q": "Nhận định nào sau đây chính xác nhất khi so sánh vai trò của nguyên lý 1 và nguyên lý 2 trong nghiên cứu hệ sống?", "ops": ["A. Nguyên lý 1 cho biết năng lượng được bảo toàn/chuyển hóa (định lượng); nguyên lý 2 cho biết chiều hướng, khả năng và giới hạn tự diễn biến (định hướng); cả hai đều không cho biết cơ chế/bản chất chi tiết của quá trình", "B. Nguyên lý 1 và 2 hoàn toàn độc lập, không liên quan gì đến nhau trong hệ sống", "C. Nguyên lý 2 có thể thay thế hoàn toàn nguyên lý 1", "D. Chỉ nguyên lý 1 áp dụng được cho hệ sống, nguyên lý 2 không áp dụng được"], "ans": "A"}
+    {"q": "Câu 1. Điều kiện để một phản ứng hóa học có thể tự diễn ra về mặt nhiệt động là:", "ops": ["A. ΔG > 0", "B. ΔG = 0", "C. ΔG < 0", "D. ΔH < 0 và ΔS < 0"], "ans": "C"},
+    {"q": "Câu 2. Công thức tính năng lượng tự do Gibbs là:", "ops": ["A. G = H + T.S", "B. G = H − T.S", "C. G = U + T.S", "D. G = H.S − T"], "ans": "B"},
+    {"q": "Câu 3. Theo Mednhicov, sự sống được định nghĩa là:", "ops": ["A. Quá trình oxy hóa liên tục các chất hữu cơ", "B. Sự duy trì và tự tái tạo một cách tích cực các cấu trúc đặc thù kèm theo tiêu tốn năng lượng", "C. Sự trao đổi chất không kèm theo năng lượng", "D. Sự cân bằng nhiệt động tuyệt đối với môi trường"], "ans": "B"},
+    {"q": "Câu 4. Cơ thể sống được xem là:", "ops": ["A. Hệ nhiệt động kín, đồng thể", "B. Hệ nhiệt động mở, dị thể", "C. Hệ cô lập, đồng thể", "D. Hệ cô lập, dị thể"], "ans": "B"},
+    {"q": "Câu 5. Đâu không phải là tính chất đặc trưng của sự sống được nêu trong bài?", "ops": ["A. Có cấu trúc phức tạp và tổ chức tinh vi", "B. Có sự chuyển hóa năng lượng phức tạp", "C. Thông tin của sự sống thì ổn định, chính xác và liên tục", "D. Luôn ở trạng thái cân bằng nhiệt động với môi trường"], "ans": "D"},
+    {"q": "Câu 6. Cơ thể sinh vật khác với hệ mở hóa học thông thường ở điểm nào sau đây?", "ops": ["A. Cơ thể có khả năng tái tạo", "B. Cơ thể có khả năng tự phát triển", "C. Cơ thể là dạng tồn tại đặc biệt của protein và các chất tạo thành cơ thể", "D. Cả ba ý trên đều đúng"], "ans": "D"},
+    {"q": "Câu 7. Nhiệt động học nghiên cứu chủ yếu về:", "ops": ["A. Cơ chế trung gian của phản ứng", "B. Trạng thái của hệ và sự bảo toàn năng lượng", "C. Tốc độ phản ứng", "D. Các yếu tố ảnh hưởng đến vận tốc phản ứng"], "ans": "B"},
+    {"q": "Câu 8. Động hóa học khác với nhiệt động học ở chỗ động hóa học nghiên cứu:", "ops": ["A. Trạng thái đầu và cuối của hệ", "B. Điều kiện cân bằng của phản ứng", "C. Tốc độ và cơ chế (giai đoạn trung gian) của phản ứng", "D. Sự biến đổi công thành nhiệt"], "ans": "C"},
+    {"q": "Câu 9. Động hóa học nghiên cứu điều gì là chính?", "ops": ["A. Cấu trúc phân tử của chất phản ứng", "B. Quy luật tiến triển theo thời gian và tốc độ của phản ứng hóa học", "C. Năng lượng liên kết hóa học", "D. Trạng thái cân bằng nhiệt động của hệ"], "ans": "B"},
+    {"q": "Câu 10. Phản ứng hóa học được định nghĩa là:", "ops": ["A. Quá trình vật lý không làm thay đổi liên kết", "B. Quá trình chuyển đổi vật chất, các liên kết hóa học thay đổi và tạo ra chất mới", "C. Sự thay đổi trạng thái vật lý của chất", "D. Sự khuếch tán phân tử trong dung dịch"], "ans": "B"},
+    {"q": "Câu 11. Tốc độ phản ứng được định nghĩa là:", "ops": ["A. Biến thiên khối lượng chất phản ứng theo thời gian", "B. Biến thiên số phân tử chất tham gia (hay tạo thành) trong một đơn vị thể tích và một đơn vị thời gian", "C. Biến thiên nhiệt độ của hệ phản ứng", "D. Biến thiên áp suất của hệ khí"], "ans": "B"},
+    {"q": "Câu 12. Với phản ứng sơ cấp A → P, tốc độ phản ứng V được biểu diễn:", "ops": ["A. V = dA/dt", "B. V = -dA/dt = dP/dt", "C. V = dA/dt = dP/dt", "D. V = -dP/dt"], "ans": "B"},
+    {"q": "Câu 13. Đơn vị thường dùng để biểu diễn nồng độ trong động hóa học là:", "ops": ["A. g/l", "B. mol/l", "C. mol/kg", "D. %"], "ans": "B"},
+    {"q": "Câu 14. Phương pháp nào sau đây không được nêu trong bài là phương pháp nghiên cứu tốc độ phản ứng?", "ops": ["A. Stopped-flow, flash photolysis", "B. UV-Vis, IR spectrometry", "C. Đánh dấu đồng vị, đánh dấu huỳnh quang", "D. Sắc ký khí khối phổ GC-MS"], "ans": "D"},
+    {"q": "Câu 15. Phương pháp Van-hoff xác định tốc độ phản ứng bằng cách:", "ops": ["A. Đo áp suất hệ phản ứng", "B. Ghi đường cong nồng độ theo thời gian và lấy tiếp tuyến tại thời điểm bất kỳ", "C. Đo pH của dung dịch", "D. Đo độ dẫn điện của dung dịch"], "ans": "B"},
+    {"q": "Câu 16. Để xác định bậc phản ứng bằng thực nghiệm, người ta có thể:", "ops": ["A. Chỉ dựa vào phương trình phản ứng tổng quát", "B. Thế giá trị thực nghiệm vào các phương trình động học bậc 0,1,2,3 hoặc vẽ đồ thị C = f(t)", "C. Chỉ dựa vào số phân tử tham gia phản ứng", "D. Đo nhiệt độ phản ứng duy nhất"], "ans": "B"},
+    {"q": "Câu 17. 'Phân tử số' của một phản ứng dùng để chỉ:", "ops": ["A. Số loại sản phẩm tạo thành", "B. Số phân tử tham gia vào một đơn vị cơ bản của sự chuyển hóa", "C. Bậc của phản ứng", "D. Số giai đoạn trung gian của phản ứng"], "ans": "B"},
+    {"q": "Câu 18. Ba yếu tố chính ảnh hưởng đến tốc độ phản ứng được nêu trong bài là:", "ops": ["A. Nồng độ, thể tích, áp suất", "B. Nồng độ, nhiệt độ, xúc tác", "C. Nhiệt độ, áp suất, thể tích", "D. Xúc tác, khối lượng, thời gian"], "ans": "B"},
+    {"q": "Câu 19. Phản ứng CH3CH2Cl → CH2=CH2 + HCl là phản ứng:", "ops": ["A. Đơn phân tử", "B. Lưỡng phân tử", "C. Tam phân tử", "D. Đa phân tử"], "ans": "A"},
+    {"q": "Câu 20. Phản ứng CH3COOH + NaOH → CH3COONa + H2O thuộc loại:", "ops": ["A. Đơn phân tử", "B. Lưỡng phân tử", "C. Tam phân tử", "D. Không xác định"], "ans": "B"},
+    {"q": "Câu 21. Phản ứng 2NO + O2 → 2NO2 là phản ứng:", "ops": ["A. Đơn phân tử", "B. Lưỡng phân tử", "C. Tam phân tử", "D. Tứ phân tử"], "ans": "C"},
+    {"q": "Câu 22. Cách phân loại phản ứng theo 'phân tử số' dựa trên căn cứ nào?", "ops": ["A. Số lượng phân tử tham gia vào một đơn vị cơ bản của sự chuyển hóa", "B. Tổng số mũ nồng độ trong phương trình tốc độ", "C. Nhiệt độ phản ứng", "D. Bản chất xúc tác sử dụng"], "ans": "A"},
+    {"q": "Câu 23. Trong sơ đồ minh họa Unimolecular – Bimolecular – Termolecular, 'Termolecular' tương ứng với:", "ops": ["A. Phản ứng đơn phân tử", "B. Phản ứng lưỡng phân tử", "C. Phản ứng tam phân tử", "D. Phản ứng không phân tử"], "ans": "C"},
+    {"q": "Câu 24. Phân tử số của phản ứng luôn là:", "ops": ["A. Một số nguyên dương", "B. Có thể là số thập phân", "C. Có thể âm", "D. Luôn bằng 1"], "ans": "A"},
+    {"q": "Câu 25. Nhận định nào sau đây đúng?", "ops": ["A. Phân tử số và bậc phản ứng luôn bằng nhau trong mọi trường hợp", "B. Phân tử số là khái niệm lý thuyết dựa trên cơ chế, còn bậc phản ứng là đại lượng thực nghiệm", "C. Bậc phản ứng luôn lớn hơn phân tử số", "D. Phân tử số luôn là số thập phân"], "ans": "B"},
+    {"q": "Câu 26. Phản ứng tam phân tử trong thực tế thường:", "ops": ["A. Rất phổ biến vì xác suất va chạm cao", "B. Ít gặp vì xác suất ba phân tử va chạm đồng thời thấp", "C. Không tồn tại trong hóa học", "D. Chỉ xảy ra ở nhiệt độ rất thấp"], "ans": "B"},
+    {"q": "Câu 27. Định luật tác dụng khối lượng (Guldberg và Waage) phát biểu tốc độ phản ứng:", "ops": ["A. V = k[A] + [B]", "B. V = k[A]^n1[B]^n2…", "C. V = k/[A][B]", "D. V = k(A+B)"], "ans": "B"},
+    {"q": "Câu 28. Bậc phản ứng tổng quát n được tính bằng:", "ops": ["A. Tích các số mũ ni", "B. Tổng các số mũ ni (n = \u03a3ni)", "C. Hiệu các số mũ ni", "D. Trung bình cộng các số mũ ni"], "ans": "B"},
+    {"q": "Câu 29. 'Bậc phản ứng đối với một chất cho trước' được định nghĩa là:", "ops": ["A. Số phân tử chất đó tham gia phản ứng", "B. Số mũ của nồng độ chất ấy trong phương trình động học của phản ứng", "C. Hóa trị của chất đó", "D. Khối lượng mol của chất đó"], "ans": "B"},
+    {"q": "Câu 30. Hằng số k trong phương trình tốc độ phản ứng được gọi là:", "ops": ["A. Hằng số cân bằng", "B. Hằng số tốc độ phản ứng", "C. Hằng số Avogadro", "D. Hằng số khí lý tưởng"], "ans": "B"},
+    {"q": "Câu 31. Bậc phản ứng có thể là:", "ops": ["A. Chỉ là số nguyên dương", "B. Số nguyên, số 0, hoặc thậm chí phân số (đối với phản ứng phức tạp)", "C. Luôn bằng phân tử số", "D. Luôn bằng 1"], "ans": "B"},
+    {"q": "Câu 32. Với phản ứng aA + bB → yY + zZ ở nhiệt độ không đổi và đồng thể, đơn giản, phương trình tốc độ có dạng:", "ops": ["A. V = k[A]^a[B]^b theo đúng hệ số tỷ lượng trong mọi trường hợp", "B. V = k[A]^n1[B]^n2, trong đó n1, n2 xác định bằng thực nghiệm (không nhất thiết bằng a, b)", "C. V chỉ phụ thuộc vào nhiệt độ", "D. V không phụ thuộc nồng độ"], "ans": "B"},
+    {"q": "Câu 33. Đối với phản ứng bậc 0, tốc độ phản ứng:", "ops": ["A. Tỉ lệ thuận với nồng độ chất phản ứng", "B. Không phụ thuộc vào nồng độ chất phản ứng (V = hằng số)", "C. Tỉ lệ nghịch với nồng độ chất phản ứng", "D. Tỉ lệ với bình phương nồng độ"], "ans": "B"},
+    {"q": "Câu 34. Phản ứng thủy phân este RCOOR' + H2O \u2192 RCOOH + R'OH trong bài được xem là ví dụ của:", "ops": ["A. Phản ứng bậc 1", "B. Phản ứng bậc 2", "C. Phản ứng bậc 0 (do nước dư, coi nồng độ H2O không đổi)", "D. Phản ứng bậc 3"], "ans": "C"},
+    {"q": "Câu 35. Trong đồ thị V theo thời gian của phản ứng bậc 0, đường biểu diễn có dạng:", "ops": ["A. Đường thẳng đi qua gốc tọa độ", "B. Đường thẳng song song với trục thời gian (hằng số)", "C. Đường cong giảm dần về 0", "D. Đường cong hàm mũ tăng"], "ans": "B"},
+    {"q": "Câu 36. Vì sao nói bậc phản ứng là một đại lượng thực nghiệm chứ không phải lý thuyết thuần túy?", "ops": ["A. Vì nó luôn được suy ra trực tiếp từ phương trình hóa học cân bằng", "B. Vì nó phải xác định qua thực nghiệm đo tốc độ, có thể khác với hệ số tỷ lượng", "C. Vì nó không liên quan đến nồng độ", "D. Vì nó chỉ áp dụng cho phản ứng khí"], "ans": "B"},
+    {"q": "Câu 37. Phương trình động học của phản ứng bậc 1 (A \u2192 P) là:", "ops": ["A. [A] = a \u2212 k1t", "B. [A] = a\u00b7exp(\u2212k1t)", "C. [A] = a/(1+k1t)", "D. [A] = a\u00b7k1t"], "ans": "B"},
+    {"q": "Câu 38. Trong phương trình [A] = a \u2212 x của phản ứng bậc 1, 'x' đại diện cho:", "ops": ["A. Nồng độ ban đầu của A", "B. Nồng độ chất A đã phản ứng (bằng nồng độ sản phẩm tạo thành)", "C. Hằng số tốc độ", "D. Thời gian phản ứng"], "ans": "B"},
+    {"q": "Câu 39. Ví dụ điển hình của phản ứng bậc 1 được nêu trong bài là:", "ops": ["A. Phản ứng ester hóa", "B. Phản ứng trung hòa acid-baz", "C. Quá trình phân rã đồng vị phóng xạ (Po \u2192 Pb + \u03b1)", "D. Phản ứng oxy hóa NO"], "ans": "C"},
+    {"q": "Câu 40. Đơn vị của hằng số tốc độ k1 (phản ứng bậc 1) là:", "ops": ["A. mol/l.s", "B. s\u207b\u00b9", "C. l/mol.s", "D. l\u00b2/mol\u00b2.s"], "ans": "B"},
+    {"q": "Câu 41. Đối với phản ứng bậc 2 dạng 2A \u2192 P, phương trình động học tích phân là:", "ops": ["A. k2t = 1/[A] \u2212 1/a", "B. k2t = ln(a/[A])", "C. k2t = a \u2212 [A]", "D. k2t = [A]\u00b2/a\u00b2"], "ans": "A"},
+    {"q": "Câu 42. Đối với phản ứng bậc 2 dạng A + B \u2192 P (TH2, a \u2260 b), phương trình tích phân có dạng:", "ops": ["A. k2t = 1/[A] \u2212 1/a", "B. 1/(a\u2212b)\u00b7[\u2212ln(b\u2212x) + ln(a\u2212x)] = k2t + C", "C. [A] = a\u00b7exp(\u2212k2t)", "D. k2t = 1/(a\u2212b)"], "ans": "B"},
+    {"q": "Câu 43. Đơn vị của hằng số tốc độ k2 (phản ứng bậc 2) là:", "ops": ["A. s\u207b\u00b9", "B. l/(mol.s)", "C. mol/(l.s)", "D. l\u00b2/mol\u00b2.s"], "ans": "B"},
+    {"q": "Câu 44. Với phản ứng bậc 3 dạng 3A \u2192 P, phương trình tích phân là:", "ops": ["A. 1/[A]\u00b2 \u2212 1/a\u00b2 = 2k3t", "B. 1/[A] \u2212 1/a = k3t", "C. [A] = a\u00b7exp(\u22123k3t)", "D. ln[A] = \u2212k3t"], "ans": "A"},
+    {"q": "Câu 45. Tổng quát, với phản ứng A + B + C \u2192 P (bậc 3), biểu thức tốc độ là:", "ops": ["A. V = k3", "B. V = k3[A][B][C]", "C. V = k3([A]+[B]+[C])", "D. V = k3/([A][B][C])"], "ans": "B"},
+    {"q": "Câu 46. Trong bảng biến thiên của phản ứng bậc 1 (A\u2192P), khi t \u2192 \u221e thì:", "ops": ["A. [A] \u2192 a, [P] \u2192 0", "B. [A] \u2192 0, [P] \u2192 a", "C. [A] và [P] đều \u2192 a/2", "D. [A] và [P] không đổi theo thời gian"], "ans": "B"},
+    {"q": "Câu 47. Thời gian bán hủy (t1/2) của phản ứng bậc 1 có đặc điểm:", "ops": ["A. Phụ thuộc vào nồng độ ban đầu a", "B. Không phụ thuộc vào nồng độ ban đầu, chỉ phụ thuộc vào k1", "C. Luôn bằng 1/k1", "D. Luôn bằng k1"], "ans": "B"},
+    {"q": "Câu 48. Nếu vẽ đồ thị ln[A] theo thời gian t của một phản ứng và thu được đường thẳng, có thể kết luận:", "ops": ["A. Phản ứng có bậc 0", "B. Phản ứng có bậc 1", "C. Phản ứng có bậc 2", "D. Phản ứng có bậc 3"], "ans": "B"},
+    {"q": "Câu 49. Nếu đồ thị 1/[A] theo t là đường thẳng, phản ứng đó có bậc:", "ops": ["A. 0", "B. 1", "C. 2", "D. 3"], "ans": "C"},
+    {"q": "Câu 50. Nếu đồ thị 1/[A]\u00b2 theo t là đường thẳng, phản ứng có bậc:", "ops": ["A. 1", "B. 2", "C. 3", "D. 0"], "ans": "C"},
+    {"q": "Câu 51. Trong phản ứng bậc 2 dạng A + B \u2192 P với a = b (nồng độ ban đầu bằng nhau), phương trình động học rút gọn tương đương với:", "ops": ["A. Dạng của phản ứng bậc 1", "B. Dạng của phản ứng 2A \u2192 P (TH1)", "C. Dạng của phản ứng bậc 3", "D. Dạng của phản ứng bậc 0"], "ans": "B"},
+    {"q": "Câu 52. Một phản ứng có phương trình tốc độ V = k[A] được xác định là phản ứng:", "ops": ["A. Bậc 0", "B. Bậc 1", "C. Bậc 2", "D. Bậc 3"], "ans": "B"},
+    {"q": "Câu 53. Một phản ứng có phương trình tốc độ V = k[A][B] (a \u2260 b) là phản ứng:", "ops": ["A. Bậc 0", "B. Bậc 1", "C. Bậc 2", "D. Bậc 3"], "ans": "C"},
+    {"q": "Câu 54. Đặc điểm chung để phân biệt bậc phản ứng qua thực nghiệm là:", "ops": ["A. Quan sát màu sắc dung dịch", "B. Dựa vào dạng đường cong nồng độ – thời gian phù hợp với phương trình động học tương ứng", "C. Đo khối lượng riêng", "D. Đo độ nhớt dung dịch"], "ans": "B"},
+    {"q": "Câu 55. Phản ứng phân rã phóng xạ Po \u2192 Pb (bền) + \u03b1 tuân theo quy luật:", "ops": ["A. Bậc 0", "B. Bậc 1 (hàm mũ giảm theo thời gian)", "C. Bậc 2", "D. Bậc 3"], "ans": "B"},
+    {"q": "Câu 56. Hệ số nhiệt độ \u03b3 trong định luật Van't Hoff được định nghĩa:", "ops": ["A. \u03b3 = kt / kt+10", "B. \u03b3 = kt+10 / kt", "C. \u03b3 = kt \u00d7 kt+10", "D. \u03b3 = kt + kt+10"], "ans": "B"},
+    {"q": "Câu 57. Theo Van't Hoff (1879), với phản ứng đồng thể, hệ số nhiệt độ \u03b3 thường có giá trị trong khoảng:", "ops": ["A. 0,5 – 1", "B. 1 – 2", "C. 2 – 4", "D. 5 – 10"], "ans": "C"},
+    {"q": "Câu 58. Phương trình Arrhenius (1889) có dạng:", "ops": ["A. k = A + Ea/RT", "B. k = A\u00b7e^(\u2212Ea/RT)", "C. k = Ea\u00b7e^(\u2212A/RT)", "D. k = A\u00b7e^(Ea/RT)"], "ans": "B"},
+    {"q": "Câu 59. Trong phương trình Arrhenius, 'A' được gọi là:", "ops": ["A. Năng lượng hoạt hóa", "B. Thừa số thực nghiệm (thừa số tần số), không phụ thuộc vào T", "C. Hằng số khí lý tưởng", "D. Hằng số cân bằng"], "ans": "B"},
+    {"q": "Câu 60. 'Ea' trong phương trình Arrhenius là:", "ops": ["A. Năng lượng tự do Gibbs", "B. Năng lượng hoạt hóa thực nghiệm", "C. Nội năng của hệ", "D. Entropy hoạt hóa"], "ans": "B"},
+    {"q": "Câu 61. Dạng logarit của phương trình Arrhenius là:", "ops": ["A. lnk = Ea/RT + lnA", "B. lnk = \u2212Ea/RT + lnA", "C. lnk = A/RT \u2212 Ea", "D. lnk = \u2212A/Ea + lnT"], "ans": "B"},
+    {"q": "Câu 62. Khi vẽ đồ thị lnk theo 1/T, theo phương trình Arrhenius, đường biểu diễn có dạng:", "ops": ["A. Đường thẳng có độ dốc dương", "B. Đường thẳng có độ dốc âm (bằng \u2212Ea/R)", "C. Đường cong parabol", "D. Đường hyperbol"], "ans": "B"},
+    {"q": "Câu 63. Sự phân bố phân tử theo năng lượng được mô tả bằng phương trình:", "ops": ["A. Phương trình Arrhenius", "B. Phương trình Maxwell–Boltzmann (NE = N\u00b7e^(\u2212E/RT))", "C. Phương trình Michaelis–Menten", "D. Phương trình Van't Hoff"], "ans": "B"},
+    {"q": "Câu 64. Theo phân bố Maxwell–Boltzmann, chỉ những phân tử có năng lượng như thế nào mới có khả năng tham gia phản ứng?", "ops": ["A. E < Ea", "B. E = 0", "C. E \u2265 Ea (bằng hay lớn hơn năng lượng hoạt hóa)", "D. E bất kỳ, không cần điều kiện"], "ans": "C"},
+    {"q": "Câu 65. Trên giản đồ năng lượng phản ứng (năng lượng theo diễn biến phản ứng), đỉnh cao nhất của đường cong tương ứng với:", "ops": ["A. Trạng thái sản phẩm bền", "B. Trạng thái chất đầu", "C. Trạng thái chuyển tiếp (phức hoạt hóa, năng lượng cực đại E*)", "D. Điểm cân bằng của phản ứng"], "ans": "C"},
+    {"q": "Câu 66. Khi nhiệt độ tăng, theo Arrhenius, hằng số tốc độ k thường:", "ops": ["A. Giảm", "B. Tăng", "C. Không đổi", "D. Có thể tăng hoặc giảm ngẫu nhiên"], "ans": "B"},
+    {"q": "Câu 67. Một trong ba dạng đồ thị v theo T (I, II, III) trong bài minh họa cho:", "ops": ["A. Phản ứng luôn tăng tốc độ đều đặn theo T ở mọi trường hợp mà không có ngoại lệ", "B. Các kiểu ảnh hưởng khác nhau của nhiệt độ đến tốc độ phản ứng (kể cả trường hợp v tăng rồi giảm - dạng III, thường gặp ở enzym)", "C. Sự phụ thuộc của áp suất vào nhiệt độ", "D. Sự phụ thuộc của bậc phản ứng vào nhiệt độ"], "ans": "B"},
+    {"q": "Câu 68. Năng lượng hoạt hóa Ea càng lớn thì:", "ops": ["A. Phản ứng xảy ra càng nhanh ở cùng nhiệt độ", "B. Phản ứng càng nhạy với sự thay đổi nhiệt độ (k thay đổi mạnh khi T thay đổi)", "C. Phản ứng không phụ thuộc nhiệt độ", "D. Hằng số cân bằng luôn bằng 1"], "ans": "B"},
+    {"q": "Câu 69. Phản ứng thuận nghịch là phản ứng:", "ops": ["A. Chỉ diễn ra theo một chiều duy nhất", "B. Diễn ra theo hai chiều ngược nhau (thuận và nghịch) đồng thời", "C. Không có sản phẩm tạo thành", "D. Chỉ xảy ra trong pha khí"], "ans": "B"},
+    {"q": "Câu 70. Với phản ứng thuận nghịch aA + bB \u21cc xX + yY (k1; k2), hằng số cân bằng K được tính:", "ops": ["A. K = k1 + k2", "B. K = k1/k2", "C. K = k1 \u00d7 k2", "D. K = k2/k1"], "ans": "B"},
+    {"q": "Câu 71. Tại trạng thái cân bằng của phản ứng thuận nghịch:", "ops": ["A. Vt > Vn", "B. Vt < Vn", "C. Vt = Vn", "D. Vt = 0 và Vn = 0"], "ans": "C"},
+    {"q": "Câu 72. Tốc độ thực (Vtp) của phản ứng thuận nghịch được tính bằng:", "ops": ["A. Vtp = Vt + Vn", "B. Vtp = Vt \u2212 Vn", "C. Vtp = Vt \u00d7 Vn", "D. Vtp = Vt/Vn"], "ans": "B"},
+    {"q": "Câu 73. Phản ứng nối tiếp là phản ứng trong đó:", "ops": ["A. Các chất phản ứng tương tác đồng thời độc lập với nhau", "B. Chất phản ứng biến hóa thành sản phẩm qua nhiều giai đoạn nối tiếp nhau", "C. Sản phẩm quay lại tạo thành chất đầu", "D. Chỉ có một giai đoạn duy nhất"], "ans": "B"},
+    {"q": "Câu 74. Với phản ứng nối tiếp bậc 1: A \u2192 B \u2192 C (k1; k2), tại t=0 có [A]=a, [B]=[C]=0. Biểu thức [A] theo thời gian là:", "ops": ["A. [A] = a \u2212 k1t", "B. [A] = a\u00b7e^(\u2212k1t)", "C. [A] = a/(1+k1t)", "D. [A] = a\u00b7e^(k1t)"], "ans": "B"},
+    {"q": "Câu 75. Trong phản ứng nối tiếp A\u2192B\u2192C, thời điểm nồng độ B đạt cực đại (tmax) được tính bằng:", "ops": ["A. tmax = 1/(k2\u2212k1)\u00b7ln(k2/k1)", "B. tmax = (k2\u2212k1)\u00b7ln(k1/k2)", "C. tmax = k1\u00d7k2", "D. tmax = 1/(k1+k2)"], "ans": "A"},
+    {"q": "Câu 76. Trong đồ thị phản ứng nối tiếp A\u2192B\u2192C theo thời gian, đường biểu diễn của B thường có dạng:", "ops": ["A. Giảm liên tục về 0", "B. Tăng liên tục đến giá trị a", "C. Tăng đến cực đại rồi giảm dần", "D. Không đổi theo thời gian"], "ans": "C"},
+    {"q": "Câu 77. Phản ứng song song là các phản ứng:", "ops": ["A. Phụ thuộc lẫn nhau và diễn ra tuần tự", "B. Độc lập, đồng thời, xuất phát từ cùng một (hay nhiều) chất đầu, tốc độ khác nhau", "C. Chỉ có một sản phẩm duy nhất", "D. Luôn có cùng hằng số tốc độ"], "ans": "B"},
+    {"q": "Câu 78. Với phản ứng song song A \u2192 B (k1) và A \u2192 C (k2), tỉ lệ sản phẩm b/c bằng:", "ops": ["A. k1 + k2", "B. k1/k2", "C. k1 \u00d7 k2", "D. k2 \u2212 k1"], "ans": "B"},
+    {"q": "Câu 79. Khi các phản ứng song song có tốc độ khác nhau rất nhiều, phản ứng chính được xem là:", "ops": ["A. Phản ứng có tốc độ nhỏ nhất", "B. Phản ứng có tốc độ lớn nhất", "C. Cả hai phản ứng đều là phản ứng chính", "D. Không xác định được phản ứng chính"], "ans": "B"},
+    {"q": "Câu 80. Phản ứng vòng là phản ứng mà tốc độ chu trình phụ thuộc vào:", "ops": ["A. Nồng độ tuyệt đối của chất ban đầu duy nhất", "B. Nồng độ tương đối của các chất tham gia vào từng giai đoạn trong chu trình", "C. Chỉ phụ thuộc vào nhiệt độ", "D. Không phụ thuộc vào bất kỳ yếu tố nào"], "ans": "B"},
+    {"q": "Câu 81. Dạng đơn giản nhất của phản ứng vòng được nêu trong bài là:", "ops": ["A. Phản ứng thuận nghịch", "B. Phản ứng dây chuyền", "C. Phản ứng men (enzym xúc tác)", "D. Phản ứng tự xúc tác"], "ans": "C"},
+    {"q": "Câu 82. Trong sơ đồ phản ứng men E + S \u21cc ES \u2192 E + P, các ký hiệu lần lượt là:", "ops": ["A. E: sản phẩm, S: enzym, P: cơ chất", "B. E: enzym, S: cơ chất (Substrate), P: sản phẩm (Product)", "C. E: phức chất, S: enzym, P: cơ chất", "D. E: cơ chất, S: sản phẩm, P: enzym"], "ans": "B"},
+    {"q": "Câu 83. Chu trình acid citric (Citric acid cycle) được nêu trong bài như một ví dụ minh họa cho:", "ops": ["A. Phản ứng thuận nghịch đơn giản", "B. Phản ứng vòng (chu trình sinh học nhiều giai đoạn nối tiếp khép kín)", "C. Phản ứng bậc 0", "D. Phản ứng dây chuyền phân nhánh"], "ans": "B"},
+    {"q": "Câu 84. Trong 4 loại phản ứng phức tạp (thuận nghịch, nối tiếp, song song, vòng), phản ứng nào có đặc điểm sản phẩm cuối có thể quay lại tương tác tạo chất đầu?", "ops": ["A. Phản ứng nối tiếp", "B. Phản ứng thuận nghịch", "C. Phản ứng song song", "D. Phản ứng vòng"], "ans": "D"},
+    {"q": "Câu 85. Nếu k2 \u226b k1 trong phản ứng nối tiếp A\u2192B\u2192C, thì:", "ops": ["A. Giai đoạn quyết định tốc độ chung là giai đoạn A\u2192B (chậm nhất)", "B. Giai đoạn quyết định tốc độ chung là giai đoạn B\u2192C", "C. Cả hai giai đoạn đều quyết định tốc độ như nhau", "D. Không thể xác định giai đoạn quyết định tốc độ"], "ans": "A"},
+    {"q": "Câu 86. Câu nào sau đây đúng khi so sánh phản ứng nối tiếp và phản ứng song song?", "ops": ["A. Nối tiếp: sản phẩm hình thành qua các giai đoạn kế tiếp; Song song: nhiều phản ứng độc lập xảy ra đồng thời từ cùng chất đầu", "B. Nối tiếp và song song là một, không có gì khác biệt", "C. Song song luôn nhanh hơn nối tiếp", "D. Nối tiếp luôn không có chất trung gian"], "ans": "A"},
+    {"q": "Câu 87. Trong phản ứng thuận nghịch, nếu k1 \u226b k2 (k1: chiều thuận, k2: chiều nghịch), điều đó cho thấy:", "ops": ["A. Cân bằng nghiêng mạnh về phía sản phẩm (chiều thuận chiếm ưu thế)", "B. Cân bằng nghiêng mạnh về phía chất đầu", "C. Phản ứng không đạt cân bằng", "D. K = 0"], "ans": "A"},
+    {"q": "Câu 88. Trong chu trình acid citric, chất nào đóng vai trò 'tái sinh' để khép kín vòng phản ứng?", "ops": ["A. Citrate", "B. Oxaloacetate", "C. Pyruvate", "D. Acetyl-CoA"], "ans": "B"},
+    {"q": "Câu 89. Phản ứng dây chuyền được xem là:", "ops": ["A. Phản ứng đơn giản một giai đoạn", "B. Phản ứng nối tiếp đặc biệt với hợp chất trung gian là các tiểu phân hoạt hóa cao (nguyên tử, gốc tự do)", "C. Phản ứng chỉ xảy ra ở pha rắn", "D. Phản ứng không có giai đoạn trung gian"], "ans": "B"},
+    {"q": "Câu 90. Ba giai đoạn cơ bản trong cơ chế phản ứng dây chuyền là:", "ops": ["A. Sinh mạch, phát triển mạch, cắt mạch (đứt mạch)", "B. Khởi đầu, cân bằng, kết thúc", "C. Tạo phức, phân ly, tái hợp", "D. Hấp phụ, phản ứng bề mặt, giải hấp"], "ans": "A"},
+    {"q": "Câu 91. Đặc điểm nhạy cảm với chất lạ của phản ứng dây chuyền thể hiện qua ví dụ nào?", "ops": ["A. Phản ứng ester hóa không đổi khi thêm chất xúc tác", "B. Hỗn hợp khí Cl2 và H2 trong bóng tối không phản ứng, nhưng phản ứng mãnh liệt khi có một lượng nhỏ Natri", "C. Phản ứng trung hòa acid-baz không đổi khi có mặt muối", "D. Phản ứng phân rã phóng xạ không đổi theo chất xúc tác"], "ans": "B"},
+    {"q": "Câu 92. Phản ứng dây chuyền không phân nhánh có đặc điểm:", "ops": ["A. Một tiểu phân hoạt động mất đi sinh ra hai tiểu phân hoạt động mới", "B. Một tiểu phân hoạt động mất đi chỉ sinh ra một tiểu phân hoạt động mới", "C. Số tiểu phân hoạt động luôn giảm về 0 ngay lập tức", "D. Không có tiểu phân hoạt động nào được sinh ra"], "ans": "B"},
+    {"q": "Câu 93. Phản ứng dây chuyền phân nhánh (ví dụ: phản ứng cháy H2 với O2) có đặc điểm:", "ops": ["A. Số tiểu phân hoạt động tăng theo hàm số mũ do một tiểu phân sinh ra hai (hoặc nhiều) tiểu phân mới", "B. Số tiểu phân hoạt động luôn không đổi", "C. Không có hiện tượng nổ xảy ra", "D. Bậc phản ứng luôn là số nguyên xác định"], "ans": "A"},
+    {"q": "Câu 94. Đặc điểm nào sau đây không đúng với phản ứng dây chuyền?", "ops": ["A. Tốc độ phụ thuộc vào hình dạng, kích thước, vật liệu bình phản ứng", "B. Bậc phản ứng có thể là phân số", "C. Thường kèm theo hiện tượng nổ", "D. Hoàn toàn không nhạy cảm với tạp chất"], "ans": "D"},
+    {"q": "Câu 95. Trong ví dụ H2 + O2 \u2192 2OH (giai đoạn sinh mạch), các phản ứng OH + H2 \u2192 H2O + H, H + O2 \u2192 OH + O, O + H2 \u2192 OH + H thuộc giai đoạn nào?", "ops": ["A. Giai đoạn sinh mạch", "B. Giai đoạn phát triển mạch (mắt xích)", "C. Giai đoạn cắt mạch", "D. Giai đoạn cân bằng"], "ans": "B"},
+    {"q": "Câu 96. Chất xúc tác được định nghĩa là chất:", "ops": ["A. Làm thay đổi tốc độ phản ứng, sau phản ứng bản chất hóa học và lượng của nó không đổi", "B. Bị tiêu hao hoàn toàn sau phản ứng", "C. Chỉ làm tăng tốc độ phản ứng thuận mà không ảnh hưởng phản ứng nghịch", "D. Làm thay đổi giới hạn (hằng số cân bằng) của phản ứng"], "ans": "A"},
+    {"q": "Câu 97. Đối với phản ứng thuận nghịch, chất xúc tác:", "ops": ["A. Chỉ làm tăng tốc độ phản ứng thuận", "B. Làm tăng tốc độ cả phản ứng thuận và nghịch, giúp nhanh đạt cân bằng, không đổi hằng số cân bằng", "C. Làm thay đổi hằng số cân bằng K", "D. Không có tác dụng gì với phản ứng thuận nghịch"], "ans": "B"},
+    {"q": "Câu 98. Cơ chế xúc tác đồng thể hoạt động bằng cách:", "ops": ["A. Không tham gia vào phản ứng, chỉ hấp phụ bề mặt", "B. Tham gia vào phản ứng, tạo sản phẩm trung gian, hướng phản ứng theo con đường có năng lượng hoạt hóa thấp hơn", "C. Làm tăng năng lượng hoạt hóa của phản ứng", "D. Chỉ có tác dụng vật lý, không có ý nghĩa hóa học"], "ans": "B"},
+    {"q": "Câu 99. Theo phương trình Michaelis–Menten, tốc độ phản ứng enzym V được biểu diễn:", "ops": ["A. V = Vmax\u00b7[S]/(Km + [S])", "B. V = Vmax\u00b7Km/[S]", "C. V = Vmax + Km\u00b7[S]", "D. V = Vmax \u2212 Km/[S]"], "ans": "A"},
+    {"q": "Câu 100. Hằng số Michaelis–Menten Km được định nghĩa (theo cơ chế E+S\u21ccES\u2192E+P với k1, k2, k3) là:", "ops": ["A. Km = k1 + k2 + k3", "B. Km = (k2 + k3)/k1", "C. Km = k1/(k2+k3)", "D. Km = k1\u00b7k2\u00b7k3"], "ans": "B"}
 ]
 
-# --- DỮ LIỆU PHẦN B: 25 CÂU HỎI ĐIỀN TỪ ---
+# --- DỮ LIỆU PHẦN 2: 30 CÂU HỎI ĐIỀN TỪ ---
 fill_data = [
-    {"q": "1. ______ là khoa học nghiên cứu về sự biến đổi năng lượng.", "ans": "Nhiệt động học"},
-    {"q": "2. Hệ không trao đổi vật chất và năng lượng với môi trường xung quanh được gọi là hệ ______.", "ans": "cô lập"},
-    {"q": "3. Hệ không trao đổi vật chất nhưng có trao đổi năng lượng với môi trường được gọi là hệ ______.", "ans": "kín", "alt": ["hệ đóng", "đóng"]},
-    {"q": "4. Hệ có trao đổi cả vật chất và năng lượng với môi trường được gọi là hệ ______.", "ans": "mở"},
-    {"q": "5. Hệ không có bề mặt phân chia thành các phần có tính chất hóa lý khác nhau được gọi là hệ ______.", "ans": "đồng thể"},
-    {"q": "6. Hệ gồm hai pha trở lên, ngăn cách nhau bởi bề mặt phân chia, được gọi là hệ ______.", "ans": "dị thể"},
-    {"q": "7. Nội năng là năng lượng ______ toàn phần của tất cả các dạng chuyển động và tương tác của các phần tử trong hệ.", "ans": "dự trữ"},
-    {"q": "8. Theo nguyên lý số 1, nhiệt lượng Q mà hệ nhận được bằng công A mà hệ sinh ra cộng với sự biến đổi ______ của hệ.", "ans": "nội năng"},
-    {"q": "9. Định luật ______ là hệ quả của nguyên lý số 1, cho biết hiệu ứng nhiệt chỉ phụ thuộc vào trạng thái đầu và cuối.", "ans": "Hexo"},
-    {"q": "10. ______ là công cụ dùng để đo nhiệt lượng tỏa ra khi đốt cháy một mẫu chất trong điều kiện cô lập.", "ans": "Bom nhiệt lượng"},
-    {"q": "11. Nguyên lý số ______ phát biểu: nếu hai hệ cân bằng nhiệt với một hệ thứ ba thì chúng cân bằng nhiệt với nhau.", "ans": "0", "alt": ["không"]},
-    {"q": "12. Đại lượng đặc trưng cho mức độ hỗn loạn hay sự phân tán năng lượng của hệ được gọi là ______.", "ans": "entropy"},
-    {"q": "13. Công thức S = k.lnω biểu diễn entropy theo định nghĩa ______ (mức độ hỗn loạn của hệ).", "ans": "thứ hai", "alt": ["2", "thứ 2"]},
-    {"q": "14. Trong công thức S = k.lnω, ω được gọi là ______.", "ans": "xác suất nhiệt động"},
-    {"q": "15. ______ là năng lượng có thể biến thành công hoàn toàn sau khi trừ đi phần năng lượng mất mát để tăng entropy.", "ans": "Năng lượng tự do"},
-    {"q": "16. Ở điều kiện T, V không đổi, năng lượng tự do được gọi là năng lượng tự do ______.", "ans": "Helmholtz"},
-    {"q": "17. Ở điều kiện T, P không đổi, năng lượng tự do được gọi là thế nhiệt động ______.", "ans": "Gibbs"},
-    {"q": "18. ______ của một tham số là hiệu giá trị của tham số đó ở hai điểm, chia cho khoảng cách giữa hai điểm đó.", "ans": "Gradient"},
-    {"q": "19. Quá trình có thể tự trở về trạng thái ban đầu mà không cần cung cấp năng lượng từ bên ngoài được gọi là quá trình ______.", "ans": "thuận nghịch"},
-    {"q": "20. Quá trình không thể tự trở về trạng thái ban đầu nếu không được cung cấp năng lượng từ bên ngoài được gọi là quá trình ______.", "ans": "bất thuận nghịch"},
-    {"q": "21. Theo định luật 2 dạng 2, ______ không thể tự truyền từ vật lạnh sang vật nóng hơn nếu không có sự thay đổi nào khác xảy ra.", "ans": "nhiệt lượng"},
-    {"q": "22. Trạng thái mà các thông số của một hệ mở không đổi theo thời gian dù vẫn có dòng vật chất/năng lượng ra vào được gọi là trạng thái ______.", "ans": "cân bằng dừng"},
-    {"q": "23. Bốn dạng công cơ bản trong cơ thể sống gồm: công hóa học, công cơ học, công thẩm thấu và công ______.", "ans": "điện"},
-    {"q": "24. Phương trình pV = nRT được gọi là phương trình ______.", "ans": "Mendeleev-Clapeyron"},
-    {"q": "25. Công thức Prigogine biểu diễn: dS/dt = dSe/dt + ______ /dt.", "ans": "dSi"}
+    {"q": "1. Điều kiện để phản ứng diễn ra tự nhiên về mặt nhiệt động là G = H \u2212 T.S __________ 0.", "ans": "<"},
+    {"q": "2. Theo Mednhicov, sự sống là 'sự duy trì và __________ một cách tích cực các cấu trúc đặc thù kèm theo tiêu tốn năng lượng'.", "ans": "tự tái tạo"},
+    {"q": "3. Cơ thể sống là hệ nhiệt động __________, dị thể.", "ans": "mở"},
+    {"q": "4. Động hóa học nghiên cứu những cơ chế và quy luật __________ theo thời gian của các quá trình hóa học.", "ans": "tiến triển"},
+    {"q": "5. Tốc độ phản ứng là biến thiên của số phân tử chất tham gia (hay tạo thành) trong một đơn vị __________ và trong một đơn vị __________.", "ans": "thể tích / thời gian", "alt": ["thể tích, thời gian", "thể tích và thời gian"]},
+    {"q": "6. With phản ứng A \u2192 P, biểu thức tốc độ được viết: V = __________ = dP/dt.", "ans": "\u2212dA/dt"},
+    {"q": "7. Phản ứng đơn phân tử, lưỡng phân tử, tam phân tử được phân loại dựa trên căn cứ __________ tham gia vào một đơn vị cơ bản của chuyển hóa.", "ans": "số lượng phân tử", "alt": ["phân tử số"]},
+    {"q": "8. Theo định luật tác dụng khối lượng của Guldberg và Waage: V = k[A]^n1[B]^n2…, trong đó bậc phản ứng n = __________.", "ans": "\u03a3ni", "alt": ["tổng các số mũ"]},
+    {"q": "9. 'Bậc phản ứng đối với một chất cho trước là số __________ của nồng độ chất ấy trong phương trình động học của phản ứng'.", "ans": "mũ"},
+    {"q": "10. Với phản ứng bậc 1: A \u2192 P, ta có [A] = a.exp(__________).", "ans": "\u2212k1t"},
+    {"q": "11. Với phản ứng bậc 0, tốc độ V = d[este]/dt = k[este][H2O] = __________.", "ans": "hằng số", "alt": ["const"]},
+    {"q": "12. Hệ số nhiệt độ Van't Hoff được ký hiệu \u03b3 = k(t+10)/kt, với phản ứng đồng thể \u03b3 thường trong khoảng __________.", "ans": "2\u20134", "alt": ["2-4"]},
+    {"q": "13. Phương trình Arrhenius có dạng: k = A.e^(__________).", "ans": "\u2212Ea/RT"},
+    {"q": "14. Trong phương trình Arrhenius, Ea được gọi là năng lượng __________.", "ans": "hoạt hóa"},
+    {"q": "15. Sự phân bố phân tử theo năng lượng được mô tả bằng phương trình __________.", "ans": "Maxwell\u2013Boltzmann", "alt": ["Maxwell Boltzmann"]},
+    {"q": "16. Chỉ có phân tử có năng lượng bằng hay lớn hơn năng lượng hoạt hóa Ea mới có khả năng __________ phản ứng.", "ans": "tham gia"},
+    {"q": "17. Phản ứng __________ là phản ứng diễn ra theo hai chiều ngược nhau đồng thời.", "ans": "thuận nghịch"},
+    {"q": "18. Tại trạng thái cân bằng của phản ứng thuận nghịch, Vt __________ Vn.", "ans": "=", "alt": ["bằng"]},
+    {"q": "19. Phản ứng __________ là phản ứng trong đó chất phản ứng biến hóa thành sản phẩm qua nhiều giai đoạn kế tiếp nhau.", "ans": "nối tiếp"},
+    {"q": "20. Phản ứng __________ là những phản ứng độc lập, đồng thời, xuất phát từ cùng một hay nhiều chất đầu, diễn ra với tốc độ khác nhau.", "ans": "song song"},
+    {"q": "21. Tốc độ chu trình của phản ứng vòng phụ thuộc vào nồng độ __________ của các chất tham gia vào từng giai đoạn trong chu trình.", "ans": "tương đối"},
+    {"q": "22. Trong sơ đồ phản ứng men, E là __________, S là cơ chất, P là __________.", "ans": "enzym / sản phẩm", "alt": ["enzym, sản phẩm"]},
+    {"q": "23. Phản ứng dây chuyền được coi là phản ứng nối tiếp đặc biệt, trong đó hợp chất trung gian là những __________ hoạt hóa cao.", "ans": "tiểu phân"},
+    {"q": "24. Ba giai đoạn cơ bản của phản ứng dây chuyền gồm: sinh mạch, __________, và cắt mạch.", "ans": "phát triển mạch"},
+    {"q": "25. Phản ứng dây chuyền __________ là phản ứng trong đó một tiểu phân hoạt động mất đi tạo ra hai (hoặc nhiều) tiểu phân hoạt động mới.", "ans": "phân nhánh"},
+    {"q": "26. Chất __________ là chất làm thay đổi tốc độ phản ứng nhưng sau phản ứng bản chất hóa học và lượng của nó không đổi.", "ans": "xúc tác"},
+    {"q": "27. Xúc tác đồng thể tăng tốc độ phản ứng bằng cách tạo sản phẩm trung gian, hướng phản ứng đi theo con đường có năng lượng hoạt hóa __________ hơn.", "ans": "thấp"},
+    {"q": "28. Enzym có bản chất là __________.", "ans": "protein"},
+    {"q": "29. Hằng số Michaelis-Menten được ký hiệu là __________, bằng (k2+k3)/k1.", "ans": "Km"},
+    {"q": "30. Phản ứng __________ là phản ứng mà sản phẩm của phản ứng giữ vai trò chất xúc tác cho chính phản ứng đó (ví dụ: Pepxinogen \u2192 Pepxin).", "ans": "tự xúc tác", "alt": ["autocatalysis"]}
 ]
 
-# --- QUẢN LÝ TRẠNG THÁI LUỒNG CÂU HỎI ---
+# --- QUẢN LÝ TRẠNG THÁI (SESSION STATE) ---
 if 'answers_a' not in st.session_state:
     st.session_state.answers_a = [None] * len(quiz_data)
 if 'answers_b' not in st.session_state:
     st.session_state.answers_b = [""] * len(fill_data)
 
-# --- THIẾT KẾ MENU THANH BÊN ---
-st.sidebar.title("📚 Lựa chọn phần ôn tập")
-menu = st.sidebar.radio("Chuyển đổi nhanh:", ["Phần A: Trắc nghiệm (100 câu)", "Phần B: Điền từ (25 câu)"])
+# --- THIẾT KẾ SIDEBAR MENU ---
+st.sidebar.title("🧭 Chọn phần ôn tập")
+menu = st.sidebar.radio("Chuyển nhanh tới mục:", ["Phần 1: Trắc nghiệm (100 câu)", "Phần 2: Điền từ (30 câu)"])
 
 # --- GIAO DIỆN CHÍNH ---
-st.title("🔥")
-st.caption("Nội dung tham chiếu cấu trúc tệp dữ liệu: 'Câu hỏi chương 2.docx'")
+st.title("⏳ ĐỘNG HÓA HỌC CÁC QUÁ TRÌNH SINH HỌC")
+st.caption("Dữ liệu đồng bộ tự động, chấm điểm thực thời bám sát cấu trúc của tệp 'Câu hỏi chương 2_2.docx'[cite: 7]")
 st.markdown("---")
 
-# 1. LOGIC XỬ LÝ PHẦN TRẮC NGHIỆM
-if menu == "Phần A: Trắc nghiệm (100 câu)":
-    st.header("📝 PHẦN A. TRẮC NGHIỆM TỰ ĐỘNG CHẤM TỨC THÌ")
-    
-    def render_block(start_idx, end_idx, title):
-        st.subheader(title)
-        for i in range(start_idx, end_idx):
+# 1. LOGIC XỬ LÝ PHẦN 1: TRẮC NGHIỆM CHẤM ĐIỂM NGAY TẠI CHỖ
+if menu == "Phần 1: Trắc nghiệm (100 câu)":
+    st.header("📝 PHẦN 1: CÂU HỎI TRẮC NGHIỆM TỰ ĐỘNG CHẤM")
+    st.info("Hệ thống hiển thị kết quả đúng/sai ngay sau khi bạn tích chọn câu trả lời.")
+
+    def render_quiz_block(start, end, section_title):
+        st.subheader(section_title)
+        for i in range(start, end):
             item = quiz_data[i]
             saved_idx = st.session_state.answers_a[i]
             
-            # Khởi tạo widget trắc nghiệm dạng hàng ngang (horizontal)
             user_choice = st.radio(
                 item["q"], 
                 item["ops"], 
@@ -173,39 +178,45 @@ if menu == "Phần A: Trắc nghiệm (100 câu)":
             if user_choice is not None:
                 st.session_state.answers_a[i] = item["ops"].index(user_choice)
                 
-                # Kiểm tra ký tự đầu để chấm điểm tự động (Ví dụ: 'A' == 'A')
+                # Trích xuất ký tự đầu tiên (A, B, C, D) để kiểm tra tính chính xác[cite: 7]
                 if user_choice[0] == item["ans"]:
-                    st.success(f"✅ Đúng! Đáp án đúng là: **{item['ans']}**")
+                    st.success(f"✅ Đúng! Đáp án chính xác: **{item['ans']}**")
                 else:
-                    st.error(f"❌ Chưa chính xác. Đáp án đúng là: **{item['ans']}**")
+                    st.error(f"❌ Chưa chính xác. Đáp án đúng: **{item['ans']}**")
             st.markdown("<hr style='margin: 10px 0px; border-top: 1px dashed #bbb;'>", unsafe_allow_html=True)
 
-    render_block(0, 40, "I. Mức độ Nhận biết (Câu 1 – 40)")
-    render_block(40, 75, "II. Mức độ Thông hiểu (Câu 41 – 75)")
-    render_block(75, 100, "III. Mức độ Vận dụng / Vận dụng cao (Câu 76 – 100)")
+    render_quiz_block(0, 8, "A. Nhiệt động học & Cơ thể sống (Câu 1–8)[cite: 7]")
+    render_quiz_block(8, 18, "B. Khái niệm cơ bản của động hóa học (Câu 9–18)[cite: 7]")
+    render_quiz_block(18, 26, "C. Phân loại phản ứng theo phân tử số (Câu 19–26)[cite: 7]")
+    render_quiz_block(26, 36, "D. Bậc phản ứng và định luật tác dụng khối lượng (Câu 27–36)[cite: 7]")
+    render_quiz_block(36, 55, "E. Phản ứng bậc 1, bậc 2, bậc 3 (Câu 37–55)[cite: 7]")
+    render_quiz_block(55, 68, "F. Ảnh hưởng của nhiệt độ đến tốc độ phản ứng (Câu 56–68)[cite: 7]")
+    render_quiz_block(68, 88, "G. Phản ứng phức tạp: thuận nghịch, nối tiếp, song song, vòng (Câu 69–88)[cite: 7]")
+    render_quiz_block(88, 95, "H. Phản ứng dây chuyền (Câu 89–95)[cite: 7]")
+    render_quiz_block(95, 100, "I. Xúc tác và Enzym (Câu 96–100)[cite: 7]")
 
-# 2. LOGIC XỬ LÝ PHẦN ĐIỀN TỪ
-elif menu == "Phần B: Điền từ (25 câu)":
-    st.header("✏️ PHẦN B. ĐIỀN TỪ CHẤM ĐIỂM KHI ẤN ENTER")
-    st.info("Nhập câu trả lời ngắn của bạn rồi ấn phím **Enter** trên bàn phím để nhận kết quả[cite: 2].")
+# 2. LOGIC XỬ LÝ PHẦN 2: ĐIỀN TỪ CHẤM ĐIỂM KHI ẤN ENTER
+elif menu == "Phần 2: Điền từ (30 câu)":
+    st.header("✏️ PHẦN 2: CÂU HỎI ĐIỀN TỪ / CỤM TỪ TỰ ĐỘNG CHẤM[cite: 7]")
+    st.info("Nhập từ hoặc cụm từ thích hợp vào ô trống rồi nhấn phím **Enter** trên bàn phím để đối chiếu đáp án.")
     
     for i, item in enumerate(fill_data):
-        input_text = st.text_input(item["q"], value=st.session_state.answers_b[i], key=f"fld_{i}").strip()
-        st.session_state.answers_b[i] = input_text
+        input_val = st.text_input(item["q"], value=st.session_state.answers_b[i], key=f"fld_{i}").strip()
+        st.session_state.answers_b[i] = input_val
         
-        if input_text != "":
-            student_ans = input_text.lower()
-            correct_ans = item["ans"].lower()
+        if input_val != "":
+            student_text = input_val.lower()
+            correct_text = item["ans"].lower()
             
-            # Kiểm tra so khớp đáp án chính xác hoặc cụm từ viết tắt/đồng nghĩa quy ước sẵn
-            is_match = (student_ans == correct_ans)
+            # Kiểm tra so khớp đáp án chính xác hoặc các phương án phụ đồng nghĩa đã được khai báo[cite: 7]
+            match = (student_text == correct_text)
             if "alt" in item:
-                for alt_text in item["alt"]:
-                    if student_ans == alt_text.lower():
-                        is_match = True
+                for alternative in item["alt"]:
+                    if student_text == alternative.lower():
+                        match = True
                         
-            if is_match:
+            if match:
                 st.success(f"✅ Chính xác! Đáp án đúng: **{item['ans']}**")
             else:
-                st.error(f"❌ Sai rồi. Đáp án chính xác là: **{item['ans']}**")
+                st.error(f"❌ Chưa chính xác. Đáp án đúng là: **{item['ans']}**")
         st.write("")
