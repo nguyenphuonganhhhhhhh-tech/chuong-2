@@ -147,7 +147,7 @@ st.sidebar.title("📚 Lựa chọn phần ôn tập")
 menu = st.sidebar.radio("Chuyển đổi nhanh:", ["Phần A: Trắc nghiệm (100 câu)", "Phần B: Điền từ (25 câu)"])
 
 # --- GIAO DIỆN CHÍNH ---
-st.title("🔥 ÔN TẬP TỰ ĐỘNG CHẤM CHƯƠNG 1")
+st.title("🔥")
 st.caption("Nội dung tham chiếu cấu trúc tệp dữ liệu: 'Câu hỏi chương 2.docx'")
 st.markdown("---")
 
